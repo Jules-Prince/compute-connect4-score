@@ -20,3 +20,6 @@ https://fr.wikipedia.org/wiki/Algorithme_minimax
 https://pageperso.lis-lab.fr/~liva.ralaivola/teachings20062005/reversi/MinMaxL2.pdf
 
 https://eeisti.fr/grug/ING-1/Info%20/Programmation%20C/Cours/25_Minmax.pdf
+
+
+Run the server : cd src/ && uvicorn main:app --reload

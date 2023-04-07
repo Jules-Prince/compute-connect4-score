@@ -63,6 +63,7 @@ class Score():
         left = self.left_calcul(grid_list, player, index_y, index_x)
         right, index_x = self.right_calcul(grid_list, player, index_y, index_x)
         
+        
     def left_calcul(self, grid_list, player, index_y, index_x):
         if index_x < 0 or grid_list[index_y][index_x] != player:
             return 0

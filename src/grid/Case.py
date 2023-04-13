@@ -13,6 +13,8 @@ class Case:
             p = emoji.emojize(":yellow_square:")
         elif self.piece == 'h' :
             p = emoji.emojize(":red_square:")
+        elif self.piece == 'x' :
+            p = emoji.emojize(":green_square:")
         else :
             p = emoji.emojize(":white_large_square:")
         return p

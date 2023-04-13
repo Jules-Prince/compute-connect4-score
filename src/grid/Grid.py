@@ -9,6 +9,11 @@ HEIGHT = 6
 
 class Grid():
 
+    def __init__(self, brdDescription): 
+        self.brdDescription = brdDescription
+        columns = [brdDescription[i:i+HEIGHT] for i in range(0, len(brdDescription), HEIGHT)]
+
+        self.cases = [Case(x, y, case) for x in range(len(columns)) for y, case in enumerate(columns[x])]
 
     def __init__(self, grdDescription=None): 
         print(grdDescription)

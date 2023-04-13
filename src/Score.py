@@ -4,9 +4,13 @@ class Score():
         # Calculate the score of the game based on the number of combinations of aligned tokens
         num_combinations = self.__count_combinations(grid, player)
         score = num_combinations[0]*1
+        print("1 : ", num_combinations[0])
         score += num_combinations[1]*10
+        print("2 : ", num_combinations[1])
         score += num_combinations[2]*100
-        score += num_combinations[3]*1000   
+        print("3 : ", num_combinations[2])
+        score += num_combinations[3]*1000
+        print("4 : ", num_combinations[3])   
         return score
     
     def __count_combinations(self, grid, player):
@@ -55,7 +59,7 @@ class Score():
                     #print("val : ", grid[i-j][5-j])
                     if grid[i-j][5-j] == player:
                         count += 1
-                        print("diag : ",  grid[i-j][5-j])
+                        #print("diag : ",  grid[i-j][5-j])
                         
                     else:
                         if count > 0:
@@ -66,19 +70,17 @@ class Score():
         #print(num_combinations)    
         
         
-        for i in range(13): # column
-            for j in range(7): 
-                #print()
-                #print("column : ", i-j)
-                #print("line : ", 5-j)
-                if i-j < 0 or 5-j < 0:
-                    #print("break")
+        #print("Diag 2")
+        #print(num_combinations)
+        for i in range(6, -7, -1):
+            for j in range(7):
+                if i+j > 6 or 5-j < 0:
                     break
-                if i-j <= 6:
+                if i+j >= 0:
                     #print("val : ", grid[i-j][5-j])
-                    if grid[i-j][5-j] == player:
+                    if grid[i+j][5-j] == player:
                         count += 1
-                        print("diag : ",  grid[i-j][5-j])
+                        #print("diag : ",  grid[i+j][5-j])
                         
                     else:
                         if count > 0:
@@ -86,12 +88,9 @@ class Score():
                                 count = 4
                             num_combinations[count-1] += 1
                             count = 0
+                    
+        #print(num_combinations)
         
-        """
-        for i in range(6, -7, -1):
-            for j in range(7):
-                grid[i+j][j]
-        """
                         
         return num_combinations
     

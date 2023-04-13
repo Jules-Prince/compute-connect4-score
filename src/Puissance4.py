@@ -15,5 +15,5 @@ if __name__ == '__main__':
     s = Score()
     grid = Grid("h00000h00000mm0000hmh000h00000h00000000000") # %6
     print(grid)
-    score = s.calculate_score(grid.grdDescription)
+    score = s.calculate_score(grid.grdDescription, 'h')
     print(score)

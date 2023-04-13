@@ -15,11 +15,10 @@ class Score():
         
         # Count the number of combinations of 1, 2, 3, and 4 aligned tokens in the grid
         num_combinations = [0, 0, 0, 0]  # 1, 2, 3, and 4 aligned tokens
-
+        count = 0
         # Count horizontal combinations
-        for j in range(6): # 0 -> 5 # column
-            count = 0
-            for i in range(7): # 0 -> 6 # line
+        for j in range(6): # 0 -> 5 # line
+            for i in range(7): # 0 -> 6 # column
                 # Count horizontal combinations
                 if grid[i][j] == player:
                     count += 1
@@ -31,9 +30,8 @@ class Score():
                         count = 0
         
         # Count vertical combinations
-        for i in range(7): # 0 -> 5 # column
-            count = 0
-            for j in range(6): # 0 -> 6 # line
+        for i in range(7): # 0 -> 6 # column
+            for j in range(6): # 0 -> 5 # line
                 # Count horizontal combinations
                 if grid[i][j] == player:
                     count += 1
@@ -43,6 +41,57 @@ class Score():
                             count = 4
                         num_combinations[count-1] += 1
                         count = 0
+                        
+        #print(num_combinations)
+        for i in range(13): # column
+            for j in range(7): 
+                #print()
+                #print("column : ", i-j)
+                #print("line : ", 5-j)
+                if i-j < 0 or 5-j < 0:
+                    #print("break")
+                    break
+                if i-j <= 6:
+                    #print("val : ", grid[i-j][5-j])
+                    if grid[i-j][5-j] == player:
+                        count += 1
+                        print("diag : ",  grid[i-j][5-j])
+                        
+                    else:
+                        if count > 0:
+                            if count > 4:
+                                count = 4
+                            num_combinations[count-1] += 1
+                            count = 0
+        #print(num_combinations)    
+        
+        
+        for i in range(13): # column
+            for j in range(7): 
+                #print()
+                #print("column : ", i-j)
+                #print("line : ", 5-j)
+                if i-j < 0 or 5-j < 0:
+                    #print("break")
+                    break
+                if i-j <= 6:
+                    #print("val : ", grid[i-j][5-j])
+                    if grid[i-j][5-j] == player:
+                        count += 1
+                        print("diag : ",  grid[i-j][5-j])
+                        
+                    else:
+                        if count > 0:
+                            if count > 4:
+                                count = 4
+                            num_combinations[count-1] += 1
+                            count = 0
+        
+        """
+        for i in range(6, -7, -1):
+            for j in range(7):
+                grid[i+j][j]
+        """
                         
         return num_combinations
     
@@ -60,3 +109,6 @@ class Score():
         if row:
             grid_list.append(row)
         return grid_list
+    
+    
+    

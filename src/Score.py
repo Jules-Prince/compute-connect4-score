@@ -27,7 +27,7 @@ class Score():
                     if count > 0:
                         if count > 4:
                             count = 4
-                        num_combinations[count] += 1
+                        num_combinations[count-1] += 1
                         count = 0
         
         # Count vertical combinations
@@ -35,19 +35,15 @@ class Score():
             count = 0
             for j in range(6): # 0 -> 6 # line
                 # Count horizontal combinations
-                #print("i : ", i)
-                #print("j : ", j)
-                #print("val : ", grid[i][j])
                 if grid[i][j] == player:
                     count += 1
                 else:
                     if count > 0:
                         if count > 4:
                             count = 4
-                        num_combinations[count] += 1
+                        num_combinations[count-1] += 1
                         count = 0
-
-     
+                        
         return num_combinations
     
     def __convert(self, desc):

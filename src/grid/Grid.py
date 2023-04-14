@@ -50,6 +50,9 @@ class Grid():
                 string += str(case) + "\t"
             string += "\n"
         return string
+    
+    
+        
 
 
 

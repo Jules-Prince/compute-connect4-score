@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from api.Connect4Routes import Connect4Routes
 from grid.Grid import Grid
 from Score import Score
+from MinMax import MinMax
 
 app = FastAPI()
 
@@ -24,3 +25,7 @@ if __name__ == '__main__':
     player = 'm'
     score = s.calculate_score(grid.grdDescription, player)
     print("Score de ",player,": ", score)
+    
+    
+    min_max =  MinMax()
+    min_max.evaluer(grid.grdDescription, 0, -1)

@@ -1,11 +1,29 @@
 from model.Grid import Grid
 
 class Score():
+<<<<<<< HEAD
     
     
     def run(self, g):
         #model = self.empty_case(g)
         grid = g
+=======
+    def calculate_score(self, grid, player):
+        # Calculate the score of the game based on the number of combinations of aligned tokens
+        num_combinations = self.__count_combinations(grid, player)
+        score = num_combinations[0]*1
+        print("1 : ", num_combinations[0])
+        score += num_combinations[1]*10
+        print("2 : ", num_combinations[1])
+        score += num_combinations[2]*100
+        print("3 : ", num_combinations[2])
+        score += num_combinations[3]*1000
+        print("4 : ", num_combinations[3])   
+        return score 
+ 
+    def __count_combinations(self, grid, player):
+        grid = self.__convert(grid)
+>>>>>>> 150c76e (min max)
         print(grid)
         grid_list = self.convert(grid.brdDescription)
         print(grid_list)

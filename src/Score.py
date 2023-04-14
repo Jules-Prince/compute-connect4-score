@@ -1,13 +1,6 @@
 from model.Grid import Grid
 
 class Score():
-<<<<<<< HEAD
-    
-    
-    def run(self, g):
-        #model = self.empty_case(g)
-        grid = g
-=======
     def calculate_score(self, grid, player):
         # Calculate the score of the game based on the number of combinations of aligned tokens
         num_combinations = self.__count_combinations(grid, player)
@@ -23,74 +16,107 @@ class Score():
  
     def __count_combinations(self, grid, player):
         grid = self.__convert(grid)
->>>>>>> 150c76e (min max)
         print(grid)
-        grid_list = self.convert(grid.brdDescription)
-        print(grid_list)
-        self.get_weight(grid_list)
-    
-    def empty_case(self, g):
-        desc = g.brdDescription
-        caracteres = list(desc)
         
-        var = True
-        for index, case in enumerate(desc):
-            if (index % 6) == 0:
-                var = True
-            if case == '0' and var == True:
-                caracteres[index] = 'x'
-                var = False
-        desc = "".join(caracteres)
-        print(desc)
-                
-        return Grid(desc)
+        # Count the number of combinations of 1, 2, 3, and 4 aligned tokens in the grid
+        num_combinations = [0, 0, 0, 0]  # 1, 2, 3, and 4 aligned tokens
+
+        self.__horizontal(grid, player, num_combinations)
+        self.__vertical(grid, player, num_combinations)
+        self.__diag1(grid, player, num_combinations)   
+        self.__diag2(grid, player, num_combinations) 
+                 
+        return num_combinations
     
-    def convert(self, desc):
-        grid_list = []
-        element = []
-        for index, case in enumerate(desc):
-            if (index % 6) == 0 and index != 0:
-                grid_list.append(element)
-                element = []
-            element.append(case)
-        return grid_list
-         
-            
+    def __diag1(self, grid, player, num_combinations):
+        count = 0
+        #print(num_combinations)
+        for i in range(13): # column
+            for j in range(7): 
+                #print()
+                #print("column : ", i-j)
+                #print("line : ", 5-j)
+                if i-j < 0 or 5-j < 0:
+                    #print("break")
+                    break
+                if i-j <= 6:
+                    #print("val : ", grid[i-j][5-j])
+                    if grid[i-j][5-j] == player:
+                        count += 1
+                        #print("diag : ",  grid[i-j][5-j])
+                        
+                    else:
+                        if count > 0:
+                            if count > 4:
+                                count = 4
+                            num_combinations[count-1] += 1
+                            count = 0
+        #print(num_combinations)
+       
+    def __diag2(self, grid, player, num_combinations):
+        count = 0      
+        #print("Diag 2")
+        #print(num_combinations)
+        for i in range(6, -7, -1):
+            for j in range(7):
+                if i+j > 6 or 5-j < 0:
+                    break
+                if i+j >= 0:
+                    #print("val : ", grid[i-j][5-j])
+                    if grid[i+j][5-j] == player:
+                        count += 1
+                        #print("diag : ",  grid[i+j][5-j])
+                        
+                    else:
+                        if count > 0:
+                            if count > 4:
+                                count = 4
+                            num_combinations[count-1] += 1
+                            count = 0
                     
-    def get_weight(self, grid_list, index_j, index_i, player):
-        score_ref = [0, 10, 100, 1000]
-        score_line = score_ref[self.line(grid_list, index_j, index_i, player)]
-        
-        for index_i, column in enumerate(grid_list):
-            for index_j, _ in enumerate(column):
-                grid_list[index_i][index_j]
-        
-        score_side = self.side(self, grid_list, index_j, index_i, player)
+        #print(num_combinations)   
     
-    def line(self, grid_list, player):
-        score = 0
-        for index_y, val_y in enumerate(grid_list):
-            for index_x, val_x in enumerate(val_y):
-                if grid_list[index_y][index_x] == player:
-                    score += self.line_score(grid_list, player, index_y, index_x)
-        
-    def line_score(self, grid_list, player, index_y, index_x):
-        print("")
-        
-    def verif(self, grid_list, player, index_y, index_x):            
-        left = self.left_calcul(grid_list, player, index_y, index_x)
-        right, index_x = self.right_calcul(grid_list, player, index_y, index_x)
-        
-        
-    def left_calcul(self, grid_list, player, index_y, index_x):
-        if index_x < 0 or grid_list[index_y][index_x] != player:
-            return 0
-        return 1 + self.left_calcul(grid_list, player, index_y, index_x-1)
+    def __vertical(self, grid, player, num_combinations):
+        count = 0
+        # Count vertical combinations
+        for i in range(7): # 0 -> 6 # column
+            for j in range(6): # 0 -> 5 # line
+                # Count horizontal combinations
+                if grid[i][j] == player:
+                    count += 1
+                else:
+                    if count > 0:
+                        if count > 4:
+                            count = 4
+                        num_combinations[count-1] += 1
+                        count = 0
     
-    def right_calcul(self, grid_list, player, index_y, index_x):
-        if index_x >= 7 or grid_list[index_y][index_x] != player:
-            return 0 , index_x
-        return 1 + self.left_calcul(grid_list, player, index_y, index_x+1) , index_x
-        
-        
-        
+    def __horizontal(self, grid, player, num_combinations):
+        count = 0
+        # Count horizontal combinations
+        for j in range(6): # 0 -> 5 # line
+            for i in range(7): # 0 -> 6 # column
+                # Count horizontal combinations
+                if grid[i][j] == player:
+                    count += 1
+                else:
+                    if count > 0:
+                        if count > 4:
+                            count = 4
+                        num_combinations[count-1] += 1
+                        count = 0
+      
+    def __convert(self, desc):
+        grid_list = []
+        row = []
+        cpt = 0
+        for case in desc:
+            row.append(case)
+            cpt += 1
+            if cpt >= 6:
+                grid_list.append(row)
+                row = []
+                cpt = 0
+        if row:
+            grid_list.append(row)
+        return 

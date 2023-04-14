@@ -51,6 +51,20 @@ class Grid():
             string += "\n"
         return string
     
+    def convert(self):
+        grid_list = []
+        row = []
+        cpt = 0
+        for case in self.grdDescription:
+            row.append(case)
+            cpt += 1
+            if cpt >= 6:
+                grid_list.append(row)
+                row = []
+                cpt = 0
+        if row:
+            grid_list.append(row)
+        return 
     
         
 

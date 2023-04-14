@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api.Connect4Routes import Connect4Routes
+#from api.Connect4Routes import Connect4Routes
 from grid.Grid import Grid
 from Score import Score
 from MinMax import MinMax
@@ -7,8 +7,8 @@ from MinMax import MinMax
 app = FastAPI()
 
 
-router = Connect4Routes()
-app.include_router(router.router)
+#router = Connect4Routes()
+#app.include_router(router.router)
 
 
 if __name__ == '__main__':
@@ -28,4 +28,4 @@ if __name__ == '__main__':
     
     
     min_max =  MinMax()
-    min_max.evaluer(grid.grdDescription, 0, -1)
+    min_max.get_best_move(grid.convert(), 'h')

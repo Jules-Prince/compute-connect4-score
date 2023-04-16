@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 #from api.Connect4Routes import Connect4Routes
-from grid.Grid import Grid
+#from grid.Grid import Grid
+from g.Grid import Grid
 from Score import Score
 from MinMax import MinMax
 

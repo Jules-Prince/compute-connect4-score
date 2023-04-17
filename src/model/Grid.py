@@ -2,6 +2,7 @@ import re
 from model.Case import Case
 from model.exceptions.CaseNotFound import CaseNotFound
 from model.exceptions.GridInvalid import GridInvalid
+from model.Piece import Piece
 
 WIDTH = 7
 HEIGHT = 6
@@ -16,9 +17,17 @@ class Grid:
             if self.cases is None:
                 self.check_if_grid_valid()
                 columns = [self.grd_description[i:i + HEIGHT] for i in range(0, len(self.grd_description), HEIGHT)]
-                self.cases = [Case(x, y, case) for x in range(len(columns)) for y, case in enumerate(columns[x])]
+                self.cases = [Case(x, y, Piece(piece)) for x in range(len(columns)) for y, piece in enumerate(columns[x])]
         else:
             self.cases = []
+
+    def play_move(self, move):
+        column = self.get_column(move.column)
+        filtered_cases = list(filter(lambda case: case.piece.value == Piece.BLANK.value, column))
+        case_to_put_piece = min(filtered_cases, key=lambda case: case.y)
+        case_to_put_piece.piece = move.player
+
+
 
     def check_if_grid_valid(self):
         if len(self.grd_description) > (WIDTH * HEIGHT) or len(self.grd_description) < (WIDTH * HEIGHT):
@@ -33,12 +42,24 @@ class Grid:
 
         return None
 
+    def get_column(self, nb_column):
+        column = []
+        for case in self.cases:
+            if case.x == nb_column:
+                column.append(case)
+        return column
+
+    def get_all_cases_different(self, other_grid):
+        other_cases = other_grid.cases
+        return list(filter(lambda case1: all(case1.x != case2.x or case1.y != case2.y or case1.piece.value != case2.piece.value for case2 in self.cases), other_cases))
+
+
     def __str__(self):
         string = ""
         if len(self.cases) < WIDTH * HEIGHT:
             return ""
         for j in range(HEIGHT - 1, -1, -1):
-            for i in range(0, WIDTH, ):
+            for i in range(0, WIDTH):
                 case = self.get_case_at(i, j)
                 if case is None:
                     raise CaseNotFound(i, j)

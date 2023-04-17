@@ -1,4 +1,5 @@
 import emoji
+from model.Piece import Piece
 
 
 class Case:
@@ -8,13 +9,9 @@ class Case:
         self.piece = piece
 
     def __str__(self):
-        p = ""
-        if self.piece == 'm':
-            p = emoji.emojize(":yellow_square:")
-        elif self.piece == 'h':
-            p = emoji.emojize(":red_square:")
-        elif self.piece == 'x':
-            p = emoji.emojize(":green_square:")
+        if self.piece.value == Piece.MACHINE.value:
+            return emoji.emojize(":yellow_square:")
+        elif self.piece.value == Piece.HUMAN.value:
+            return emoji.emojize(":red_square:")
         else:
-            p = emoji.emojize(":white_large_square:")
-        return p
+            return emoji.emojize(":white_large_square:")

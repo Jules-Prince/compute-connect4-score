@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from model.Grid import Grid
 from Score import Score
 from MinMax import MinMax
+from src.model.Move import Move
+from src.model.Piece import Piece
 
 app = FastAPI()
 
@@ -14,16 +16,22 @@ if __name__ == '__main__':
     print()
 
     s = Score()
-    grid = Grid("h00000hm0000mm0000hmh000hh0000h00000000000")  # %6
+    grid = Grid("000000000000000000000000000000000000000000")  # %6
+    print(grid)
 
-    player = 'h'
+    player = Piece.HUMAN
     score = s.calculate_score(grid, player)
-    print("Score de ", player, ": ", score)
+    print("Score de ", player.value, ": ", score)
 
-    player = 'm'
+    player = Piece.MACHINE
     score = s.calculate_score(grid, player)
-    print("Score de ", player, ": ", score)
+    print("Score de ", player.value, ": ", score)
 
     min_max = MinMax()
-    print(min_max.get_best_move(grid, 'h'))
-    print(min_max.get_best_move(grid, 'm'))
+    for i in range(4):
+        grid.play_move(Move(1, Piece.HUMAN))
+        print(grid)
+        best_move = min_max.get_best_move(grid, Piece.MACHINE)
+        grid.play_move(best_move)
+        print(grid)
+

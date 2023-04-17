@@ -1,53 +1,46 @@
 import copy
 from Score import Score
 from model.Grid import Grid
+from model.Piece import Piece
+from model.Move import Move
 
 
-class MinMax():
+class MinMax:
     def __init__(self, max_depth=5):
         self.max_depth = max_depth
         self.score = Score()
 
-    def get_best_move(self, grid: Grid, player):
+    def get_best_move(self, grid: Grid, player: Piece):
         _, best_move = self.minimax(player, 0, grid)
-        return best_move
+        new_case_to_add = grid.get_all_cases_different(best_move)[0]
+        return Move(new_case_to_add.x, new_case_to_add.piece)
 
-    def minimax(self, player, depth, grid: Grid):
+    def minimax(self, player: Piece, depth, grid: Grid):
         score = self.score.calculate_score(grid, player)
 
         if depth == self.max_depth or score >= 1000:
             # return game_state.evaluate(player), None
             return score, None
 
-        if player == 'h':
+        if player.value == Piece.HUMAN.value:
             best_value = float('-inf')
-            best_move = None
-            stapes = self.__empty_case(grid, player)
-            for move in stapes:
-                # new_state = game_state.get_next_state(move, player)
-                move = Grid("", cases=move)
-                value, _ = self.minimax('m', depth + 1, move)
-                if value > best_value:
-                    best_value = value
-                    best_move = move
-            return best_value, best_move
         else:
             best_value = float('inf')
-            best_move = None
-            stapes = self.__empty_case(grid, player)
-            for move in stapes:
-                # new_state = game_state.get_next_state(move, player)
-                move = Grid("", cases=move)
-                value, _ = self.minimax('h', depth + 1, move)
-                if value < best_value:
-                    best_value = value
-                    best_move = move
+        best_move = None
+        stapes = self.__empty_case(grid, player)
+        for move in stapes:
+            move = Grid("", cases=move)
+            value, _ = self.minimax(Piece.MACHINE if player.value == Piece.HUMAN.value else Piece.HUMAN, depth + 1, move)
+            if (player.value == Piece.HUMAN.value and value > best_value) or (player.value == Piece.MACHINE.value and value < best_value):
+                best_value = value
+                best_move = move
+
             return best_value, best_move
 
-    def __empty_case(self, grid: Grid, player: str) -> list:
+    def __empty_case(self, grid: Grid, player: Piece) -> list:
         empty_case = []
         for case in grid.cases:
-            if case.piece == '0':
+            if case.piece.value == Piece.BLANK.value:
                 gg = copy.deepcopy(grid)
                 gg.get_case_at(case.x, case.y).piece = player
                 empty_case.append(gg.cases)

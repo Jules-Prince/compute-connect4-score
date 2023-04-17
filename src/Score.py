@@ -6,13 +6,13 @@ class Score:
         # Calculate the score of the game based on the number of combinations of aligned tokens
         num_combinations = self.__count_combinations(grid, player)
         score = num_combinations[0] * 1
-        print("1 : ", num_combinations[0])
+        #print("1 : ", num_combinations[0])
         score += num_combinations[1] * 10
-        print("2 : ", num_combinations[1])
+        #print("2 : ", num_combinations[1])
         score += num_combinations[2] * 100
-        print("3 : ", num_combinations[2])
+        #print("3 : ", num_combinations[2])
         score += num_combinations[3] * 1000
-        print("4 : ", num_combinations[3])
+        #print("4 : ", num_combinations[3])
         return score
 
     def __count_combinations(self, grid: Grid, player):

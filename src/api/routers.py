@@ -23,16 +23,20 @@ def new_grid(grid_dsc: str):
 
 @router.post("/grid/new_move/{move_dto}", status_code=status.HTTP_200_OK)
 def new_move(move_dto: str):
-    print("val : ", move_dto)
+    print("\n##################################################")
+    print("NOUVEAU TOUR")
+    print("##################################################\n")
+    
     move_dto = int(move_dto)
     try:
         move = Move(move_dto, Piece.HUMAN)
-        print("\nJoueur : ")
         main.grid.play_move(move)
+        print("\nJoueur : ")
+        print_grid()
         main.min_max = MinMax()
         opponent_move = main.min_max.get_best_move(main.grid, Piece.MACHINE)
-        print("\nMachine : ")
         main.grid.play_move(opponent_move)
+        print("\nMachine : ")
         print_grid()
     except Exception as e:
         return Response(content="Invalid request body", status_code=status.HTTP_400_BAD_REQUEST)

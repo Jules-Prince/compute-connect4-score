@@ -33,3 +33,5 @@ sudo docker build --no-cache -t puissance4:1 .
 ## Run
 
 sudo docker run -p 8000:8000 puissance4:1
+
+sudo docker run -d -p 8000:8000 puissance4:1

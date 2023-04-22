@@ -1,4 +1,4 @@
-from model.Piece import Piece
+from src.model.Piece import Piece
 
 
 class Move:

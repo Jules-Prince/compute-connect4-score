@@ -1,5 +1,5 @@
-from model.Grid import Grid
-from model.Piece import Piece
+from src.model.Grid import Grid
+from src.model.Piece import Piece
 
 
 class Score:

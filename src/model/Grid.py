@@ -1,8 +1,8 @@
 import re
-from model.Case import Case
-from model.exceptions.CaseNotFound import CaseNotFound
-from model.exceptions.GridInvalid import GridInvalid
-from model.Piece import Piece
+from src.model.Case import Case
+from src.model.exceptions.CaseNotFound import CaseNotFound
+from src.model.exceptions.GridInvalid import GridInvalid
+from src.model.Piece import Piece
 
 WIDTH = 7
 HEIGHT = 6

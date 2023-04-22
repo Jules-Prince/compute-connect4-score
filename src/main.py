@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from model.Grid import Grid
-from api import routers
-from MinMax import MinMax
+from src.model.Grid import Grid
+from src.api import routers
+from src.MinMax import MinMax
 
 grid = Grid("000000000000000000000000000000000000000000")
 app = FastAPI()

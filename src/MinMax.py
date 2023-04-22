@@ -1,8 +1,8 @@
 import copy
-from Score import Score
-from model.Grid import Grid
-from model.Piece import Piece
-from model.Move import Move
+from src.Score import Score
+from src.model.Grid import Grid
+from src.model.Piece import Piece
+from src.model.Move import Move
 
 
 class MinMax:

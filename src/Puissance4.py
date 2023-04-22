@@ -3,8 +3,8 @@ from fastapi import FastAPI
 from model.Grid import Grid
 from Score import Score
 from MinMax import MinMax
-from src.model.Move import Move
-from src.model.Piece import Piece
+from model.Move import Move
+from model.Piece import Piece
 
 app = FastAPI()
 

@@ -2,13 +2,13 @@ from fastapi import APIRouter, status, Request
 from fastapi.openapi.models import Response
 
 
-import main
-from MinMax import MinMax
-from model.Grid import Grid
-from model.Move import Move
-from model.Piece import Piece
-from api.model_dto.Move_DTO import Move_DTO
-from model.exceptions.GridInvalid import GridInvalid
+from src import main
+from src.MinMax import MinMax
+from src.model.Grid import Grid
+from src.model.Move import Move
+from src.model.Piece import Piece
+from src.api.model_dto.Move_DTO import Move_DTO
+from src.model.exceptions.GridInvalid import GridInvalid
 
 router = APIRouter()
 

@@ -35,33 +35,26 @@ class MinMax:
 
     def get_best_move(self, grid: Grid, player: Piece):
         _, best_move = self.__run(player, 0, grid)
-        #print("OK")
-        #print(best_move)
         new_case_to_add = grid.get_all_cases_different(best_move)[0]
         return Move(new_case_to_add.x, new_case_to_add.piece)
 
     def __run(self, player: Piece, depth, grid: Grid):
         
-        print("TEST : ", player.name)
+        #print("TEST : ", player.name)
         #print(grid)
         score = self.score.calculate_score(grid, player)
-        print("SCORE : ", score)
+        #print("SCORE : ", score)
         #print("DEPTH : ", depth)
         if depth == self.max_depth or score >= 1000:
-            #print("STOP")
             if player.value == Piece.MACHINE.value:
                 return score, None
             else:
                 return -score, None
         best_move = None
         best_value = 0
-        #print("0")
+        
         stapes = self.__empty_case(grid, player)  
-        #print("STAPES : \n\n")
-        #for stape in stapes:
-            #print("\n")
-            #print(stape)  
-        #print("1")    
+  
         if player.value == Piece.MACHINE.value:
             valeur_max = float('-inf')
             for move in stapes:
@@ -70,10 +63,8 @@ class MinMax:
                 #print("AFTER MACHINE : ", value)
                 valeur_max = max(valeur_max, value)
                 if valeur_max > best_value:
-                    #print("BEST")
                     best_value = valeur_max
                     best_move = move
-            #print("2")
             return valeur_max, best_move
         
         else: # Piece.HUMAN.value
@@ -81,12 +72,10 @@ class MinMax:
             for move in stapes:
                 move = Grid("", cases=move.cases)
                 value, _ = self.__run(Piece.MACHINE, depth + 1, move)
-                #print("AFTER HUMAN")
                 valeur_min = min(valeur_min, value)
                 if valeur_min < best_value:
                     best_value = valeur_min
                     best_move = move
-            #print("3")
             return valeur_min, best_move
 
     def __empty_case(self, grid: Grid, player: Piece) -> list:

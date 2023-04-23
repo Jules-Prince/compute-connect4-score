@@ -13,6 +13,15 @@ from src.model.exceptions.GridInvalid import GridInvalid
 
 router = APIRouter()
 
+title = """
+██████  ██    ██ ██ ███████ ███████  █████  ███    ██  ██████ ███████     ██   ██ 
+██   ██ ██    ██ ██ ██      ██      ██   ██ ████   ██ ██      ██          ██   ██ 
+██████  ██    ██ ██ ███████ ███████ ███████ ██ ██  ██ ██      █████       ███████ 
+██      ██    ██ ██      ██      ██ ██   ██ ██  ██ ██ ██      ██               ██ 
+██       ██████  ██ ███████ ███████ ██   ██ ██   ████  ██████ ███████          ██ 
+"""
+print(title)
+
 @router.post("/grid/new_grid/{grid_dsc}", status_code=status.HTTP_200_OK)
 def new_grid(grid_dsc: str):
     print("wtf")
@@ -39,21 +48,25 @@ def new_move(move_dto: str):
             main.grid.play_move(move)
             print("\nJoueur : ")
             print_grid()
+            sc = score.calculate_score(main.grid, Piece.HUMAN)
+            print("HUMAIN SCORE : ", sc) 
             if score.calculate_score(main.grid, Piece.HUMAN) >= 1000:
                 print("\n!!!!!!!!! HUMAIN WIN !!!!!!!!!\n")
                 end = True
-            
             if end:    
                 reset_grid()
+                end = False
             else:
                 main.min_max = MinMax()
                 opponent_move = main.min_max.get_best_move(main.grid, Piece.MACHINE)
                 main.grid.play_move(opponent_move)
                 print("\nMachine : ")
                 print_grid()
-                if score.calculate_score(main.grid, Piece.MACHINE) >= 1000:
-                    print("\n!!!!!!!!! MACHINE WIN !!!!!!!!!\n")
-                    end = True            
+                sc = score.calculate_score(main.grid, Piece.MACHINE)
+                print("MACHINE SCORE : ", sc) 
+                if sc >= 1000:
+                    print("\n!!!!!!!!! MACHINE WIN !!!!!!!!!\n")  
+                    reset_grid()       
             
         except Exception as e:
             return Response(content="Invalid request body", status_code=status.HTTP_400_BAD_REQUEST)

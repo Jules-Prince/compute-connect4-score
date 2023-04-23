@@ -36,7 +36,7 @@ class MinMax:
     def get_best_move(self, grid: Grid, player: Piece):
         _, best_move = self.__run(player, 0, grid)
         #print("OK")
-        print(best_move)
+        #print(best_move)
         new_case_to_add = grid.get_all_cases_different(best_move)[0]
         return Move(new_case_to_add.x, new_case_to_add.piece)
 

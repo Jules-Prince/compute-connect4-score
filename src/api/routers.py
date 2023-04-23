@@ -47,7 +47,7 @@ def new_move(move_dto: str):
             move = Move(move_dto, Piece.HUMAN)
             main.grid.play_move(move)
             print("\nJoueur : ")
-            print_grid()
+            print(main.grid)
             sc = score.calculate_score(main.grid, Piece.HUMAN)
             print("HUMAIN SCORE : ", sc) 
             if score.calculate_score(main.grid, Piece.HUMAN) >= 1000:
@@ -61,7 +61,7 @@ def new_move(move_dto: str):
                 opponent_move = main.min_max.get_best_move(main.grid, Piece.MACHINE)
                 main.grid.play_move(opponent_move)
                 print("\nMachine : ")
-                print_grid()
+                print(main.grid)
                 sc = score.calculate_score(main.grid, Piece.MACHINE)
                 print("MACHINE SCORE : ", sc) 
                 if sc >= 1000:

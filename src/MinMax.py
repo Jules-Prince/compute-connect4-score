@@ -31,7 +31,6 @@ class MinMax:
     def __init__(self, max_depth=4):
         self.max_depth = max_depth
         self.score = Score()
-        self.action = None
 
     def get_best_move(self, grid: Grid, player: Piece):
         _, best_move = self.__run(player, 0, grid)
@@ -39,12 +38,8 @@ class MinMax:
         return Move(new_case_to_add.x, new_case_to_add.piece)
 
     def __run(self, player: Piece, depth, grid: Grid):
-        
-        #print("TEST : ", player.name)
-        #print(grid)
         score = self.score.calculate_score(grid, player)
-        #print("SCORE : ", score)
-        #print("DEPTH : ", depth)
+
         if depth == self.max_depth or score >= 1000:
             if player.value == Piece.MACHINE.value:
                 return score, None
@@ -60,7 +55,6 @@ class MinMax:
             for move in stapes:
                 move = Grid("", cases=move.cases)
                 value, _ = self.__run(Piece.HUMAN, depth + 1, move)
-                #print("AFTER MACHINE : ", value)
                 valeur_max = max(valeur_max, value)
                 if valeur_max > best_value:
                     best_value = valeur_max

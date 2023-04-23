@@ -44,6 +44,8 @@ def new_move(move_dto: str):
         else:
             main.min_max = MinMax()
             opponent_move = main.min_max.get_best_move(main.grid, Piece.MACHINE)
+            print("NEW MOVE : ")
+            print(opponent_move)
             main.grid.play_move(opponent_move)
             print("\nMachine : ")
             print_grid()

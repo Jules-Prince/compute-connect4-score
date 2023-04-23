@@ -42,14 +42,17 @@ class MinMax:
 
     def __run(self, player: Piece, depth, grid: Grid):
         
-        #print("TEST : ", player.name)
+        print("TEST : ", player.name)
         #print(grid)
         score = self.score.calculate_score(grid, player)
-        #print("SCORE : ", score)
+        print("SCORE : ", score)
         #print("DEPTH : ", depth)
         if depth == self.max_depth or score >= 1000:
             #print("STOP")
-            return score, None
+            if player.value == Piece.MACHINE.value:
+                return score, None
+            else:
+                return -score, None
         best_move = None
         best_value = 0
         #print("0")

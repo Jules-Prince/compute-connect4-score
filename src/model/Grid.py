@@ -11,7 +11,7 @@ HEIGHT = 6
 class Grid:
     def __init__(self, grd_description: str = None, cases: list[Case] = None):
         self.cases = cases
-        print(grd_description)
+        #print(grd_description)
         self.grd_description = grd_description
         if self.grd_description is not None:
             if self.cases is None:

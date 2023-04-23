@@ -39,7 +39,6 @@ class MinMax:
 
     def __run(self, player: Piece, depth, grid: Grid):
         score = self.score.calculate_score(grid, player)
-
         if depth == self.max_depth or score >= 1000:
             if player.value == Piece.MACHINE.value:
                 return score, None
@@ -47,9 +46,7 @@ class MinMax:
                 return -score, None
         best_move = None
         best_value = 0
-        
         stapes = self.__empty_case(grid, player)  
-  
         if player.value == Piece.MACHINE.value:
             valeur_max = float('-inf')
             for move in stapes:

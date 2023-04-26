@@ -1,17 +1,10 @@
 from fastapi import FastAPI
-from api.Connect4Routes import Connect4Routes
-from grid.Grid import Grid
-from score import Score
+from src.model.Grid import Grid
+from src.api import routers
+from src.MinMax import MinMax
 
+grid = Grid("000000000000000000000000000000000000000000")
 app = FastAPI()
+min_max = MinMax()
 
-def main():
-    s = Score()
-    grid = Grid("h00000h00000mm0000hmh000h00000h00000000000") # %6
-    print(grid)
-    grid = s.run(grid)
-    #print(grid)
-
-
-router = Connect4Routes()
-app.include_router(router.router)
+app.include_router(routers.router)

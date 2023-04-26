@@ -9,17 +9,31 @@
 			"name": "print grid",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/grid",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"grid"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "new move",
+			"name": "new_grid",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/grid/m00000h00000mm0000hmh000h00000h00000000000",
+					"raw": "http://127.0.0.1:8000/grid/new_grid/hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -30,17 +44,65 @@
 					"port": "8000",
 					"path": [
 						"grid",
-						"m00000h00000mm0000hmh000h00000h00000000000"
+						"new_grid",
+						"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "reset",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/grid",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"grid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new_move",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"column\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/grid/new_move/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"grid",
+						"new_move",
+						""
+					]
+				}
 			},
 			"response": []
 		}

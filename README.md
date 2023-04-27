@@ -35,3 +35,19 @@ sudo docker build --no-cache -t puissance4:1 .
 sudo docker run -p 8000:8000 puissance4:1
 
 sudo docker run -d -p 8000:8000 puissance4:1
+
++# DockerHub
++
++## TAG and PUSH
++
++sudo docker tag puissance4:1 rocketgang/puissance4:1
++sudo docker push rocketgang/puissance4:1
++
++## Pull
++
++sudo docker pull rocketgang/puissance4:1
++
++## Run
++
++sudo docker run -p 8000:8000 rocketgang/puissance4:1
++sudo docker run -d -p 8000:8000 rocketgang/puissance4:1
